@@ -34,3 +34,60 @@ export default function Sender() {
     </div>
   );
 }
+
+
+
+// import React, { useState, useEffect } from "react";
+// import { encryptMessage, generateKeys } from "../utils/rsa";
+// import { database } from "../firebase";
+// import { ref, push } from "firebase/database";
+
+// const Sender = () => {
+//   const [message, setMessage] = useState("");
+//   const [receiverPublicKey, setReceiverPublicKey] = useState("");
+//   const [keys, setKeys] = useState({ publicKey: "", privateKey: "" });
+
+//   useEffect(() => {
+//     // Generate RSA keys for the sender when the component loads
+//     const generatedKeys = generateKeys();
+//     setKeys(generatedKeys);
+//     console.log("Sender Public Key:", generatedKeys.publicKey);
+//   }, []);
+
+//   const sendMessage = async () => {
+//     if (!message || !receiverPublicKey) return;
+
+//     // Encrypt the message using the receiver's public key
+//     const encryptedMessage = encryptMessage(message, receiverPublicKey);
+
+//     // Save encrypted message to Firebase
+//     const messagesRef = ref(database, "messages");
+//     await push(messagesRef, {
+//       encryptedMessage,
+//       senderPublicKey: keys.publicKey, // Send the sender's public key as well
+//     });
+
+//     setMessage(""); // Clear the message input
+//   };
+
+//   return (
+//     <div>
+//       <h1>Sender</h1>
+//       <textarea
+//         placeholder="Enter receiver's public key"
+//         value={receiverPublicKey}
+//         onChange={(e) => setReceiverPublicKey(e.target.value)}
+//       ></textarea>
+//       <br />
+//       <textarea
+//         placeholder="Type your message"
+//         value={message}
+//         onChange={(e) => setMessage(e.target.value)}
+//       ></textarea>
+//       <br />
+//       <button onClick={sendMessage}>Send</button>
+//     </div>
+//   );
+// };
+
+// export default Sender;

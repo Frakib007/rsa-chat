@@ -34,3 +34,67 @@ export default function Receiver() {
     </div>
   );
 }
+
+
+
+
+
+
+
+// import React, { useState, useEffect } from "react";
+// import { decryptMessage, generateKeys } from "../utils/rsa";
+// import { database } from "../firebase";
+// import { ref, onValue } from "firebase/database";
+
+// const Receiver = () => {
+//   const [messages, setMessages] = useState([]);
+//   const [keys, setKeys] = useState({ publicKey: "", privateKey: "" });
+
+//   useEffect(() => {
+//     // Generate RSA keys for the receiver when the component loads
+//     const generatedKeys = generateKeys();
+//     setKeys(generatedKeys);
+//     console.log("Receiver Public Key:", generatedKeys.publicKey);
+
+//     // Listen to new messages in Firebase
+//     const messagesRef = ref(database, "messages");
+//     onValue(messagesRef, (snapshot) => {
+//       const data = snapshot.val();
+//       if (data) {
+//         const messagesArray = Object.values(data);
+//         setMessages(messagesArray);
+//       }
+//     });
+//   }, []);
+
+//   const decryptReceivedMessage = (encryptedMessage) => {
+//     try {
+//       return decryptMessage(encryptedMessage, keys.privateKey);
+//     } catch (error) {
+//       return "Failed to decrypt.";
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <h1>Receiver</h1>
+//       <p>Your Public Key: <br /> {keys.publicKey}</p>
+//       <div>
+//         <h2>Received Messages:</h2>
+//         {messages.map((msg, index) => (
+//           <div key={index}>
+//             <p>Sender Public Key: {msg.senderPublicKey}</p>
+//             <p>
+//               Encrypted Message: <br /> {msg.encryptedMessage}
+//             </p>
+//             <p>
+//               Decrypted Message: <br /> {decryptReceivedMessage(msg.encryptedMessage)}
+//             </p>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Receiver;

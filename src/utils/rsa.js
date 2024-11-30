@@ -1,26 +1,24 @@
-// rsa.js
 import forge from "node-forge";
 
-// Generate RSA Key Pair
-export function generateKeyPair() {
-  const keyPair = forge.pki.rsa.generateKeyPair({ bits: 2048, e: 0x10001 });
-  return {
-    publicKey: forge.pki.publicKeyToPem(keyPair.publicKey),
-    privateKey: forge.pki.privateKeyToPem(keyPair.privateKey),
-  };
-}
+// Generate RSA keys
+export const generateKeys = () => {
+  const keypair = forge.pki.rsa.generateKeyPair({ bits: 2048 });
+  const publicKey = forge.pki.publicKeyToPem(keypair.publicKey);
+  const privateKey = forge.pki.privateKeyToPem(keypair.privateKey);
+  return { publicKey, privateKey };
+};
 
-// Encrypt Message
-export function encryptMessage(publicKeyPem, message) {
+// Encrypt a message using a public key
+export const encryptMessage = (message, publicKeyPem) => {
   const publicKey = forge.pki.publicKeyFromPem(publicKeyPem);
   const encrypted = publicKey.encrypt(message, "RSA-OAEP");
-  return forge.util.encode64(encrypted);
-}
+  return forge.util.encode64(encrypted); // Encode the encrypted message as Base64
+};
 
-// Decrypt Message
-export function decryptMessage(privateKeyPem, encryptedMessage) {
+// Decrypt a message using a private key
+export const decryptMessage = (encryptedMessage, privateKeyPem) => {
   const privateKey = forge.pki.privateKeyFromPem(privateKeyPem);
-  const encryptedBytes = forge.util.decode64(encryptedMessage);
+  const encryptedBytes = forge.util.decode64(encryptedMessage); // Decode from Base64
   const decrypted = privateKey.decrypt(encryptedBytes, "RSA-OAEP");
   return decrypted;
-}
+};
